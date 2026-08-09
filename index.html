@@ -1,155 +1,1069 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza World Galaxy | Fresh Hot</title>
-    <!-- Premium Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600&display=swap"
-        rel="stylesheet">
-    <!-- FontAwesome -->
+    <title>Pizza World Galaxy - 3D Floating UI</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@500;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-</head>
+    
+    <style>
+        :root {
+            --dark-maroon: #380B0B;
+            --light-maroon: #5A1212;
+            --brand-yellow: #FFC107;
+            --brand-red: #E63946;
+            --text-white: #FFFFFF;
+            --text-offwhite: #E0E0E0;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFF9ED;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================
+           HEADER & LOGO SECTION
+           ========================================== */
+        header {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            padding: 25px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle-btn {
+            display: none;
+            color: var(--text-white);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .menu-toggle-btn:hover { color: var(--brand-yellow); }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--brand-yellow);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo-text {
+            font-family: 'Dancing Script', cursive;
+            color: var(--text-white);
+            line-height: 0.9;
+            transform: rotate(-3deg);
+        }
+
+        .logo-text .main-text { font-size: 26px; display: block; }
+        .logo-text .sub-text { 
+            font-size: 20px; 
+            color: var(--brand-yellow); 
+            display: block; 
+            margin-left: 15px;
+        }
+
+        .desktop-nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .desktop-nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover { color: var(--brand-yellow); }
+
+        .btn-header {
+            background-color: var(--brand-yellow);
+            color: #000;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        /* ==========================================
+           MOBILE SLIDING MENU (Sidebar)
+           ========================================== */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0; left: -300px;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--dark-maroon);
+            box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+            z-index: 2000;
+            transition: 0.4s ease-in-out;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-sidebar.active { left: 0; }
+
+        .close-sidebar {
+            align-self: flex-end;
+            font-size: 28px;
+            color: var(--text-white);
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+        
+        .close-sidebar:hover { color: var(--brand-red); }
+
+        .mobile-nav-links { list-style: none; display: flex; flex-direction: column; gap: 20px; }
+        
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: var(--text-white);
+            font-size: 18px;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+
+        .mobile-nav-links a:hover { color: var(--brand-yellow); padding-left: 10px; }
+
+        .sidebar-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
+            z-index: 1500;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+
+        /* ==========================================
+           HERO SECTION
+           ========================================== */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, var(--light-maroon) 0%, var(--dark-maroon) 80%);
+            display: flex;
+            align-items: center;
+            padding: 100px 8% 50px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 10;
+            max-width: 50%;
+        }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 5px 15px;
+            color: var(--text-offwhite);
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(40px, 7vw, 95px);
+            line-height: 1.05;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-content h1 .yellow-text { color: var(--brand-yellow); display: block; }
+        .hero-content h1 .white-text { color: var(--text-white); display: block; }
+
+        .hero-content p {
+            color: var(--text-offwhite);
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 90%;
+            margin-bottom: 35px;
+        }
+
+        .btn-order {
+            background-color: var(--brand-red);
+            color: var(--text-white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-order:hover { background-color: #d62828; transform: scale(1.05); }
+
+        /* ==========================================
+           GAME STYLE 3D SLIDER CSS (Desktop)
+           ========================================== */
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 600px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+       /* --- IDEA 1: SPINNING TORNADO --- */
+/* Desktop */
+.food-slide-wrapper {
+    position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;
+    opacity: 0;
+    transform: translateX(300px) rotate(180deg) scale(0.3);
+    transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
+}
+.food-slide-wrapper.active {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+    z-index: 5;
+}
+.food-slide-wrapper.leaving {
+    opacity: 0;
+    transform: translateX(-300px) rotate(-180deg) scale(0.3);
+    z-index: 10;
+}
+
+/* Mobile View Ke Ander (@media max-width: 991px ke andar paste karein) */
+.food-slide-wrapper {
+    transform: translateX(150px) rotate(180deg) scale(0.5); opacity: 0;
+}
+.food-slide-wrapper.active {
+    transform: translateX(0) rotate(0deg) scale(1.1); opacity: 1;
+}
+.food-slide-wrapper.leaving {
+    transform: translateX(-150px) rotate(-180deg) scale(0.5); opacity: 0;
+}
+        .floating-image {
+            width: 100%; 
+            height: 100%; 
+            max-width: 750px;
+            object-fit: contain; 
+            filter: drop-shadow(-15px 25px 20px rgba(0,0,0,0.7)); 
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        /* Torn/Wave bottom shape */
+        .custom-shape-divider-bottom {
+            position: absolute; bottom: -1px; left: 0; width: 100%;
+            overflow: hidden; line-height: 0; transform: rotate(180deg); z-index: 20;
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative; display: block; width: calc(100% + 1.3px); height: 60px;
+        }
+        .custom-shape-divider-bottom .shape-fill { fill: #FFF9ED; }
+
+        /* ==========================================
+           MOBILE RESPONSIVE DESIGN
+           ========================================== */
+        @media (max-width: 991px) {
+            header { 
+                padding: 15px 5%; 
+                background: linear-gradient(to bottom, rgba(56, 11, 11, 0.95), rgba(56, 11, 11, 0)); 
+            }
+            .desktop-nav { display: none; } 
+            .menu-toggle-btn { display: block; } 
+            .btn-header { display: block; padding: 8px 18px; font-size: 12px; }
+
+            .brand-logo img { width: 40px; height: 40px; }
+            .logo-text .main-text { font-size: 20px; }
+            .logo-text .sub-text { font-size: 16px; margin-left: 10px; }
+
+            .hero {
+                flex-direction: column; 
+                justify-content: flex-start;
+                /* PADDING KAM KI HAI taake image top par shift ho aur screen cover kare */
+                padding: 100px 5% 50px; 
+                text-align: center;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .hero-visual {
+                order: 1; 
+                flex: none; 
+                width: 100%;
+                /* HEIGHT BARHA DI HAI taake image ko full space mile */
+                height: 380px; 
+                margin-top: 0;
+                /* MARGIN KAM KI HAI taake text image ke qareeb aa jaye */
+                margin-bottom: 10px; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .slider-container {
+                width: 100%;
+                height: 100%;
+            }
+
+            /* --- IDEA 1: SPINNING TORNADO --- */
+/* Desktop */
+.food-slide-wrapper {
+    position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;
+    opacity: 0;
+    transform: translateX(300px) rotate(180deg) scale(0.3);
+    transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1;
+}
+.food-slide-wrapper.active {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+    z-index: 5;
+}
+.food-slide-wrapper.leaving {
+    opacity: 0;
+    transform: translateX(-300px) rotate(-180deg) scale(0.3);
+    z-index: 10;
+}
+
+/* Mobile View Ke Ander (@media max-width: 991px ke andar paste karein) */
+.food-slide-wrapper {
+    transform: translateX(150px) rotate(180deg) scale(0.5); opacity: 0;
+}
+.food-slide-wrapper.active {
+    transform: translateX(0) rotate(0deg) scale(1.1); opacity: 1;
+}
+.food-slide-wrapper.leaving {
+    transform: translateX(-150px) rotate(-180deg) scale(0.5); opacity: 0;
+}
+
+            .floating-image {
+                width: 100%; 
+                height: 100%;
+                /* MAX WIDTH BARHA DI HAI taake screen par huge nazar aaye */
+                max-width: 480px; 
+                object-fit: contain; 
+            }
+
+            .hero-content {
+                order: 2; 
+                max-width: 100%;
+                margin-top: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-content h1 { 
+                font-size: 45px; /* Thora compact kiya taake adjust ho */
+                letter-spacing: -1px; 
+                margin-bottom: 10px; 
+            }
+            .hero-content p { 
+                font-size: 14px; 
+                margin: 0 auto 20px; 
+            }
+            
+            .custom-shape-divider-bottom svg { height: 40px; }
+        }
+
+        @media (max-width: 480px) {
+            /* SMALL PHONES KE LIYE BHI ADJUSTMENTS */
+            .hero { padding-top: 85px; } 
+            .hero-content h1 { font-size: 40px; }
+            .hero-visual { height: 320px; margin-bottom: 10px; }
+            .floating-image { max-width: 380px; } 
+        }
+    </style>
+</head>
 <body>
 
-    <!-- ================= PART 1: HERO SECTION ================= -->
-    <div class="hero-wrapper">
+    <!-- Overlay for Sidebar -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-        <!-- Navbar -->
-        <header class="navbar container">
-            <div class="logo">
-                <i class="fa-solid fa-burger"></i>
-                <div class="logo-text">
-                    <span>Pizza World</span>
-                    <small>GALAXY</small>
-                </div>
-            </div>
-
-            <nav class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Menu</a>
-                <a href="#">Campaigns</a>
-                <a href="#">Stores</a>
-                <a href="#">Contact</a>
-            </nav>
-
-            <a href="#" class="btn-nav">Order Now</a>
-
-            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
-        </header>
-
-        <!-- Hero Content -->
-        <section class="hero-content container">
-
-            <!-- Typography Left -->
-            <div class="hero-text">
-                <span class="hero-subtitle">Most Sold 2024</span>
-                <h1 class="hero-title">
-                    Fresh Hot, <br> Made to <span class="highlight">Love!</span>
-                </h1>
-                <a href="#" class="btn-primary">ORDER NOW</a>
-            </div>
-
-            <!-- Image Right -->
-            <div class="hero-image">
-                <img src="images/hero.png" alt="Fresh Hot Pizza and Burger" class="hero-main-img">
-            </div>
-
-        </section>
-
-        <!-- Torn Paper/Brush Edge Effect -->
-        <div class="torn-edge"></div>
+    <!-- Mobile Sidebar Menu -->
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <i class="fas fa-times close-sidebar" id="close-btn"></i>
+        <ul class="mobile-nav-links">
+            <li><a href="#home"><i class="fas fa-home" style="margin-right: 10px; color: var(--brand-yellow);"></i> Home</a></li>
+            <li><a href="#pizzas"><i class="fas fa-pizza-slice" style="margin-right: 10px; color: var(--brand-yellow);"></i> Pizzas</a></li>
+            <li><a href="#burgers"><i class="fas fa-hamburger" style="margin-right: 10px; color: var(--brand-yellow);"></i> Burgers</a></li>
+            <li><a href="#deals"><i class="fas fa-tags" style="margin-right: 10px; color: var(--brand-yellow);"></i> Deals</a></li>
+            <li><a href="#contact"><i class="fas fa-phone" style="margin-right: 10px; color: var(--brand-yellow);"></i> Contact</a></li>
+        </ul>
+        
+        <button class="btn-order" style="margin-top: 40px; width: 100%; font-size: 14px;">Order Now</button>
     </div>
 
-
-    <!-- ================= PART 2: PRODUCTS SECTION ================= -->
-    <section class="products-section container">
-
-        <!-- Section Header -->
-        <div class="section-header">
-            <span class="section-subtitle">What's New <i class="fa-solid fa-fire"></i></span>
-            <h2 class="section-title">You Are Grilling</h2>
-            <p class="section-desc">Discover our best and most delicious fast food options, crafted with the freshest
-                ingredients and a whole lot of love just for you.</p>
+    <!-- Main Header -->
+    <header>
+        <!-- Left Side: Hamburger & Logo -->
+        <div class="header-left">
+            <i class="fas fa-bars menu-toggle-btn" id="menu-btn"></i>
+            <a href="#" class="brand-logo">
+                <img src="media/logo.jpg" alt="PWG Logo">
+                <div class="logo-text">
+                    <span class="main-text">Pizza World</span>
+                    <span class="sub-text">Galaxy</span>
+                </div>
+            </a>
         </div>
 
-        <!-- 3 Cards Grid -->
-        <div class="products-grid">
+        <!-- Center: Desktop Nav -->
+        <ul class="desktop-nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#pizzas">Pizzas</a></li>
+            <li><a href="#burgers">Burgers</a></li>
+            <li><a href="#deals">Deals</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
 
-            <!-- Card 1 -->
-            <div class="product-card">
-                <div class="card-badge yellow">New</div>
+        <!-- Right Side: Header Button -->
+        <button class="btn-header">Order Now</button>
+    </header>
 
-                <!-- Image Placeholder -->
-                <div class="placeholder-card-img">
-                    <p>[ AI Image ]</p>
-                    <small>Generate: Juicy Burger PNG</small>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        
+        <div class="hero-content">
+            <div class="badge">Best Deal</div>
+            <h1>
+                <span class="yellow-text">PIZZA &</span>
+                <span class="white-text">BURGER</span>
+            </h1>
+            <p>Taste the universe with our mouth-watering combinations. Freshly baked pizzas, juicy double-patty burgers, and spicy shawarmas made to satisfy your strongest cravings.</p>
+            
+            <button class="btn-order">Order Now</button>
+        </div>
+
+        <!-- Game Style 3D Auto Slider Visuals -->
+        <div class="hero-visual">
+            <div class="slider-container">
+                <!-- Image 1: Pizza -->
+                <div class="food-slide-wrapper active">
+                    <img src="media/pizza.png" alt="Delicious Pizza" class="floating-image">
                 </div>
-
-                <div class="card-content">
-                    <h3>Rustler Burger</h3>
-                    <p class="card-meta">Flame Grilled & Juicy</p>
-                    <p class="card-desc">A delicious double patty burger with fresh lettuce, tomatoes, and our secret
-                        sauce.</p>
-                    <div class="card-footer">
-                        <a href="#" class="btn-card">Order</a>
-                        <span class="price">Rs 450</span>
-                    </div>
+                <!-- Image 2: Burger -->
+                <div class="food-slide-wrapper">
+                    <img src="media/burger.png" alt="Juicy Burger" class="floating-image">
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="product-card">
-                <div class="card-badge orange">Hot</div>
-
-                <!-- Image Placeholder -->
-                <div class="placeholder-card-img">
-                    <p>[ AI Image ]</p>
-                    <small>Generate: Double Cheese Burger PNG</small>
+                <!-- Image 3: Fries/Combo -->
+                <div class="food-slide-wrapper">
+                    <img src="media/fries.png" alt="Combo" class="floating-image">
                 </div>
-
-                <div class="card-content">
-                    <h3>Feed Feast Grill</h3>
-                    <p class="card-meta">Double Cheese & Beef</p>
-                    <p class="card-desc">Loaded with cheese, jalapeños, and extra beef for the ultimate craving.</p>
-                    <div class="card-footer">
-                        <a href="#" class="btn-card">Order</a>
-                        <span class="price">Rs 600</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="product-card">
-                <div class="card-badge red">Sale</div>
-
-                <!-- Image Placeholder -->
-                <div class="placeholder-card-img">
-                    <p>[ AI Image ]</p>
-                    <small>Generate: Chicken Burger PNG</small>
-                </div>
-
-                <div class="card-content">
-                    <h3>Melt Cheese</h3>
-                    <p class="card-meta">Crispy Chicken & Sauce</p>
-                    <p class="card-desc">Crispy fried chicken breast topped with melted cheddar and fresh veggies.</p>
-                    <div class="card-footer">
-                        <a href="#" class="btn-card">Order</a>
-                        <span class="price">Rs 350</span>
-                    </div>
+                <!-- Image 4: Shawarma -->
+                <div class="food-slide-wrapper">
+                    <img src="media/shawrmas.png" alt="Shawarma" class="floating-image">
                 </div>
             </div>
+        </div>
 
+        <!-- Wave / Torn Edge -->
+        <div class="custom-shape-divider-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+            </svg>
         </div>
     </section>
 
-</body>
+    <!-- JS Logic -->
+    <script>
+        // 1. Mobile Sliding Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const sidebar = document.getElementById('mobile-sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
 
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // 2. Game-Style 3D Image Slider Logic
+        const slides = document.querySelectorAll('.food-slide-wrapper');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            let prevSlide = currentSlide;
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Remove active and add 'leaving' class for the fly-out effect
+            slides[prevSlide].classList.remove('active');
+            slides[prevSlide].classList.add('leaving');
+            
+            // Reset the previous slide after animation completes
+            setTimeout(() => {
+                slides[prevSlide].classList.remove('leaving');
+            }, 900);
+            
+            // Bring in the new slide
+            slides[currentSlide].classList.add('active');
+        }
+
+        // Change slide every 3.5 seconds
+        setInterval(nextSlide, 3500);
+
+    </script>
+   <!-- ==========================================
+     PART 2: 3D SWIPE SLIDER & BOXLESS MENU
+     ========================================== -->
+<style>
+    /* Part 2 Specific Variables */
+    :root {
+        --text-dark: #1A1A1A;
+        --accent-yellow: #FFC107;
+        --accent-red: #E63946;
+    }
+
+    .fresh-section {
+        background-color: #FFF9ED;
+        padding: 90px 5% 70px;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+    }
+
+    .fresh-heading {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+        font-size: clamp(30px, 5vw, 45px);
+        color: var(--text-dark);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+
+    .fresh-desc {
+        color: #666;
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        max-width: 600px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+    }
+
+    /* -------------------------------------
+       1) 3D COVERFLOW SLIDER CSS
+       ------------------------------------- */
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-width: 1000px;
+        height: 480px;
+        margin: 20px auto 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1200px;
+    }
+
+    .brush-glow {
+        position: absolute;
+        width: 50%;
+        height: 180px;
+        background: var(--accent-yellow);
+        border-radius: 50%;
+        filter: blur(50px);
+        opacity: 0.5;
+        z-index: 0;
+    }
+
+    .carousel-item {
+        position: absolute;
+        width: 300px;
+        text-align: center;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease, filter 0.6s ease;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        filter: drop-shadow(0 25px 20px rgba(0,0,0,0.25));
+        margin-bottom: 20px;
+        pointer-events: none;
+    }
+
+    .carousel-item h4 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--text-dark);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .carousel-item .price {
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        color: var(--accent-red);
+        font-weight: 700;
+    }
+
+    /* Desktop 3D Positions */
+    .carousel-item.active {
+        transform: translateX(0) scale(1.15);
+        z-index: 5;
+        opacity: 1;
+        filter: blur(0);
+    }
+
+    .carousel-item.prev {
+        transform: translateX(-110%) scale(0.85);
+        z-index: 3;
+        opacity: 0.6;
+        filter: blur(2px);
+    }
+
+    .carousel-item.next {
+        transform: translateX(110%) scale(0.85);
+        z-index: 3;
+        opacity: 0.6;
+        filter: blur(2px);
+    }
+
+    .carousel-item.hidden {
+        transform: translateX(0) scale(0.4);
+        z-index: 1;
+        opacity: 0;
+    }
+
+    .slider-controls {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    .control-btn {
+        background: transparent;
+        border: 2px solid var(--text-dark);
+        color: var(--text-dark);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .control-btn:hover {
+        background: var(--text-dark);
+        color: #fff;
+    }
+
+    /* -------------------------------------
+       2) BOXLESS VINTAGE MENU CSS (All Pizzas)
+       ------------------------------------- */
+    .boxless-section {
+        background-color: #F8F3E9;
+        padding: 90px 5%;
+        text-align: center;
+    }
+
+    .boxless-heading {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 34px;
+        font-weight: 900;
+        color: var(--text-dark);
+        text-transform: uppercase;
+        margin-bottom: 60px;
+    }
+
+    .boxless-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .boxless-item {
+        width: 240px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .boxless-item img {
+        width: 100%;
+        max-width: 200px;
+        height: 200px;
+        object-fit: contain;
+        filter: drop-shadow(0 15px 10px rgba(0,0,0,0.15));
+        transition: transform 0.4s ease;
+        margin-bottom: 20px;
+    }
+
+    .boxless-item:hover img {
+        transform: translateY(-15px) scale(1.08);
+        filter: drop-shadow(0 25px 15px rgba(0,0,0,0.25));
+    }
+
+    .boxless-item h3 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--text-dark);
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+
+    .boxless-item p {
+        font-family: 'Dancing Script', cursive;
+        color: #888;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .boxless-item .price {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--accent-red);
+        margin-bottom: 15px;
+    }
+
+    .add-to-cart-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-dark);
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--accent-yellow);
+        padding-bottom: 3px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .add-to-cart-btn:hover {
+        color: var(--accent-red);
+        border-color: var(--accent-red);
+        letter-spacing: 1px;
+    }
+
+    /* -------------------------------------
+       MOBILE RESPONSIVE OPTIMIZATIONS
+       ------------------------------------- */
+    @media (max-width: 768px) {
+        .carousel-container { 
+            height: 340px; 
+            margin-top: 10px; 
+        }
+        
+        /* Mobile par active image ko bada aur prominent kiya */
+        .carousel-item.active { 
+            transform: translateX(0) scale(1.25); 
+            z-index: 5;
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        /* Mobile par background items ko mazeed chota aur low fade/blur kiya taake overlap na ho */
+        .carousel-item.prev { 
+            transform: translateX(-55%) scale(0.55); 
+            z-index: 2;
+            opacity: 0.3;
+            filter: blur(5px);
+        }
+
+        .carousel-item.next { 
+            transform: translateX(55%) scale(0.55); 
+            z-index: 2;
+            opacity: 0.3;
+            filter: blur(5px);
+        }
+
+        .carousel-item { 
+            width: 200px; 
+        }
+
+        .carousel-item h4 {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .carousel-item .price {
+            font-size: 16px;
+        }
+        
+        .boxless-grid { gap: 30px; }
+        .boxless-item { width: 45%; }
+    }
+    
+    @media (max-width: 480px) {
+        .carousel-item.prev { transform: translateX(-45%) scale(0.5); opacity: 0.2; }
+        .carousel-item.next { transform: translateX(45%) scale(0.5); opacity: 0.2; }
+        .carousel-item.active { transform: translateX(0) scale(1.2); }
+        .boxless-item { width: 100%; max-width: 260px; margin-bottom: 10px; }
+    }
+</style>
+
+<!-- SECTION 1: 3D Swipe Slider (Most Popular) -->
+<section class="fresh-section" id="deals">
+    <h2 class="fresh-heading">MOST POPULAR</h2>
+    <p class="fresh-desc">Swipe to explore our galaxy of flavors. Handcrafted to perfection.</p>
+    
+    <div class="carousel-container" id="swipeArea">
+        <div class="brush-glow"></div>
+        
+        <!-- Dish 1 -->
+        <div class="carousel-item prev" onclick="handleUserInteraction(); setSlide(0);">
+            <img src="media/popular 1.png" alt="Galaxy Burger">
+            <h4>Galaxy Burger</h4>
+            <span class="price">Rs. 1,299</span>
+        </div>
+        
+        <!-- Dish 2 -->
+        <div class="carousel-item active" onclick="handleUserInteraction(); setSlide(1);">
+            <img src="media/popular 2.png" alt="Meteor Pizza">
+            <h4>Meteor Pizza</h4>
+            <span class="price">Rs. 1,550</span>
+        </div>
+        
+        <!-- Dish 3 -->
+        <div class="carousel-item next" onclick="handleUserInteraction(); setSlide(2);">
+            <img src="media/popular 3.png" alt="Star Combo">
+            <h4>Star Combo</h4>
+            <span class="price">Rs. 1,800</span>
+        </div>
+        
+        <!-- Dish 4 -->
+        <div class="carousel-item hidden" onclick="handleUserInteraction(); setSlide(3);">
+            <img src="media/popular 4.png" alt="Asteroid Fries">
+            <h4>Asteroid Fries</h4>
+            <span class="price">Rs. 599</span>
+        </div>
+    </div>
+
+    <div class="slider-controls">
+        <button class="control-btn" onclick="handleUserInteraction(); moveSlide(-1);"><i class="fas fa-chevron-left"></i></button>
+        <button class="control-btn" onclick="handleUserInteraction(); moveSlide(1);"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</section>
+
+<!-- SECTION 2: Boxless Vintage Menu (All 6 Pizzas with 2-Line Text & PKR) -->
+<section class="boxless-section" id="menu">
+    <h2 class="boxless-heading">All Pizzas Menu</h2>
+    
+    <div class="boxless-grid">
+        <!-- Pizza 1 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Tikka Pizza">
+            <h3>Chicken Tikka<br>Pizza</h3>
+            <p>Spicy & Traditional</p>
+            <span class="price">Rs. 1,499</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Pizza 2 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Fajita Pizza">
+            <h3>Creamy Fajita<br>Pizza</h3>
+            <p>Loaded with Cheese</p>
+            <span class="price">Rs. 1,599</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Pizza 3 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=500&q=80" alt="Malai Boti Pizza">
+            <h3>Malai Boti<br>Special</h3>
+            <p>Rich & Creamy</p>
+            <span class="price">Rs. 1,699</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Pizza 4 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=500&q=80" alt="Super Supreme">
+            <h3>Super Supreme<br>Orbit</h3>
+            <p>All-In-One Toppings</p>
+            <span class="price">Rs. 1,899</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Pizza 5 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=80" alt="Pepperoni Feast">
+            <h3>Pepperoni<br>Galaxy</h3>
+            <p>Extra Pepperoni & Mozzarella</p>
+            <span class="price">Rs. 1,750</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+
+        <!-- Pizza 6 -->
+        <div class="boxless-item">
+            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=500&q=80" alt="Cheesy Cheese">
+            <h3>Double Cheese<br>Explosion</h3>
+            <p>100% Pure Mozzarella</p>
+            <span class="price">Rs. 1,399</span>
+            <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for 3D Swipe Slider with Smart Autoplay -->
+<script>
+    const items = document.querySelectorAll('.carousel-item');
+    let currentIndex = 1;
+    let autoplayInterval = null;
+    let isUserInteracted = false;
+
+    function updateCarousel() {
+        items.forEach((item, index) => {
+            item.classList.remove('active', 'prev', 'next', 'hidden');
+            
+            if (index === currentIndex) {
+                item.classList.add('active');
+            } else if (index === (currentIndex - 1 + items.length) % items.length) {
+                item.classList.add('prev');
+            } else if (index === (currentIndex + 1) % items.length) {
+                item.classList.add('next');
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+    }
+
+    function moveSlide(direction) {
+        currentIndex = (currentIndex + direction + items.length) % items.length;
+        updateCarousel();
+    }
+
+    function setSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    // Jab user click ya swipe karega toh autoplay hamesha ke liye band ho jayega
+    function handleUserInteraction() {
+        if (!isUserInteracted) {
+            isUserInteracted = true;
+            clearInterval(autoplayInterval);
+        }
+    }
+
+    // Auto slide function
+    function startAutoplay() {
+        autoplayInterval = setInterval(() => {
+            if (!isUserInteracted) {
+                moveSlide(1);
+            }
+        }, 3500);
+    }
+
+    // Initialize Autoplay on page load
+    startAutoplay();
+
+    // Mobile Swipe Logic (Touch Events)
+    let touchstartX = 0;
+    let touchendX = 0;
+    const swipeArea = document.getElementById('swipeArea');
+
+    swipeArea.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    });
+
+    swipeArea.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        if (touchendX < touchstartX - 40) {
+            // Swiped Left
+            handleUserInteraction();
+            moveSlide(1);
+        }
+        if (touchendX > touchstartX + 40) {
+            // Swiped Right
+            handleUserInteraction();
+            moveSlide(-1);
+        }
+    }
+</script>
+</body>
 </html>
