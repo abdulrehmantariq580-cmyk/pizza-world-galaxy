@@ -752,7 +752,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 60px;
+        gap: 40px;
         max-width: 1200px;
         margin: 0 auto;
     }
@@ -766,12 +766,12 @@
 
     .boxless-item img {
         width: 100%;
-        max-width: 200px;
-        height: 200px;
+        max-width: 180px;
+        height: 180px;
         object-fit: contain;
         filter: drop-shadow(0 15px 10px rgba(0,0,0,0.15));
         transition: transform 0.4s ease;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .boxless-item:hover img {
@@ -781,7 +781,7 @@
 
     .boxless-item h3 {
         font-family: 'Montserrat', sans-serif;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 800;
         color: var(--text-dark);
         text-transform: uppercase;
@@ -792,16 +792,16 @@
     .boxless-item p {
         font-family: 'Dancing Script', cursive;
         color: #888;
-        font-size: 18px;
-        margin-bottom: 10px;
+        font-size: 16px;
+        margin-bottom: 8px;
     }
 
     .boxless-item .price {
         font-family: 'Poppins', sans-serif;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
         color: var(--accent-red);
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .add-to-cart-btn {
@@ -810,7 +810,7 @@
         color: var(--text-dark);
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        font-size: 13px;
+        font-size: 12px;
         text-transform: uppercase;
         border-bottom: 2px solid var(--accent-yellow);
         padding-bottom: 3px;
@@ -833,7 +833,6 @@
             margin-top: 10px; 
         }
         
-        /* Mobile par active image ko bada aur prominent kiya */
         .carousel-item.active { 
             transform: translateX(0) scale(1.25); 
             z-index: 5;
@@ -841,7 +840,6 @@
             filter: blur(0);
         }
 
-        /* Mobile par background items ko mazeed chota aur low fade/blur kiya taake overlap na ho */
         .carousel-item.prev { 
             transform: translateX(-55%) scale(0.55); 
             z-index: 2;
@@ -869,15 +867,43 @@
             font-size: 16px;
         }
         
-        .boxless-grid { gap: 30px; }
-        .boxless-item { width: 45%; }
+        /* STRICTLY 2 PRODUCTS PER LINE ON MOBILE */
+        .boxless-grid { 
+            gap: 20px; 
+            justify-content: space-between;
+        }
+        .boxless-item { 
+            width: 47%; /* 2 items per row with slight gap */
+            max-width: none;
+        }
+        .boxless-item img {
+            height: 130px; /* Scales down smoothly on narrow screens */
+            max-width: 130px;
+        }
+        .boxless-heading {
+            font-size: 26px;
+            margin-bottom: 30px;
+        }
+        .boxless-item h3 {
+            font-size: 14px;
+        }
+        .boxless-item p {
+            font-size: 14px;
+        }
+        .boxless-item .price {
+            font-size: 14px;
+        }
     }
     
     @media (max-width: 480px) {
         .carousel-item.prev { transform: translateX(-45%) scale(0.5); opacity: 0.2; }
         .carousel-item.next { transform: translateX(45%) scale(0.5); opacity: 0.2; }
         .carousel-item.active { transform: translateX(0) scale(1.2); }
-        .boxless-item { width: 100%; max-width: 260px; margin-bottom: 10px; }
+        
+        /* Ensures 2 items stay side-by-side even on very thin phones */
+        .boxless-item { 
+            width: 47%; 
+        }
     }
 </style>
 
@@ -931,7 +957,7 @@
     <div class="boxless-grid">
         <!-- Pizza 1 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" alt="Tikka Pizza">
+            <img src="media/all_pizza.webp" alt="Tikka Pizza">
             <h3>Chicken Tikka<br>Pizza</h3>
             <p>Spicy & Traditional</p>
             <span class="price">Rs. 1,499</span>
@@ -940,7 +966,7 @@
 
         <!-- Pizza 2 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Fajita Pizza">
+            <img src="media/all_pizza.webp" alt="Fajita Pizza">
             <h3>Creamy Fajita<br>Pizza</h3>
             <p>Loaded with Cheese</p>
             <span class="price">Rs. 1,599</span>
@@ -949,7 +975,7 @@
 
         <!-- Pizza 3 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=500&q=80" alt="Malai Boti Pizza">
+            <img src="media/all_pizza.webp" alt="Malai Boti Pizza">
             <h3>Malai Boti<br>Special</h3>
             <p>Rich & Creamy</p>
             <span class="price">Rs. 1,699</span>
@@ -958,7 +984,7 @@
 
         <!-- Pizza 4 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=500&q=80" alt="Super Supreme">
+            <img src="media/all_pizza.webp" alt="Super Supreme">
             <h3>Super Supreme<br>Orbit</h3>
             <p>All-In-One Toppings</p>
             <span class="price">Rs. 1,899</span>
@@ -967,7 +993,7 @@
 
         <!-- Pizza 5 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=80" alt="Pepperoni Feast">
+            <img src="media/all_pizza.webp" alt="Pepperoni Feast">
             <h3>Pepperoni<br>Galaxy</h3>
             <p>Extra Pepperoni & Mozzarella</p>
             <span class="price">Rs. 1,750</span>
@@ -976,7 +1002,7 @@
 
         <!-- Pizza 6 -->
         <div class="boxless-item">
-            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=500&q=80" alt="Cheesy Cheese">
+            <img src="media/all_pizza.webp" alt="Cheesy Cheese">
             <h3>Double Cheese<br>Explosion</h3>
             <p>100% Pure Mozzarella</p>
             <span class="price">Rs. 1,399</span>
@@ -1018,7 +1044,6 @@
         updateCarousel();
     }
 
-    // Jab user click ya swipe karega toh autoplay hamesha ke liye band ho jayega
     function handleUserInteraction() {
         if (!isUserInteracted) {
             isUserInteracted = true;
@@ -1026,7 +1051,6 @@
         }
     }
 
-    // Auto slide function
     function startAutoplay() {
         autoplayInterval = setInterval(() => {
             if (!isUserInteracted) {
@@ -1035,10 +1059,8 @@
         }, 3500);
     }
 
-    // Initialize Autoplay on page load
     startAutoplay();
 
-    // Mobile Swipe Logic (Touch Events)
     let touchstartX = 0;
     let touchendX = 0;
     const swipeArea = document.getElementById('swipeArea');
@@ -1054,12 +1076,10 @@
 
     function handleSwipe() {
         if (touchendX < touchstartX - 40) {
-            // Swiped Left
             handleUserInteraction();
             moveSlide(1);
         }
         if (touchendX > touchstartX + 40) {
-            // Swiped Right
             handleUserInteraction();
             moveSlide(-1);
         }
