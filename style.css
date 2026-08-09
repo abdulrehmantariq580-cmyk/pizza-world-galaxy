@@ -1,0 +1,434 @@
+:root {
+    --bg-red-dark: #720f12;
+    --bg-red-light: #9B1A1E;
+    --bg-beige: #F6EEDF;
+    /* Warm cream/beige from reference */
+    --accent-yellow: #F6B846;
+    /* Button color */
+    --accent-orange: #EF8643;
+
+    --text-dark: #2C2C2C;
+    --text-white: #FFFFFF;
+
+    --font-main: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-beige);
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================= PART 1: HERO SECTION ================= */
+.hero-wrapper {
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-red-dark) 0%, var(--bg-red-light) 100%);
+    padding-bottom: 120px;
+    /* Space for image overlap */
+}
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent-yellow);
+}
+
+.logo i {
+    font-size: 2.2rem;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text span {
+    color: var(--text-white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.logo-text small {
+    color: var(--accent-yellow);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-yellow);
+}
+
+.btn-nav {
+    background-color: var(--accent-orange);
+    color: var(--text-white);
+    text-decoration: none;
+    padding: 8px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-nav:hover {
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+}
+
+.hamburger {
+    display: none;
+    color: var(--text-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- Hero Content --- */
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hero-subtitle {
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    color: var(--text-white);
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+.hero-title .highlight {
+    color: var(--accent-yellow);
+}
+
+.btn-primary {
+    background-color: var(--accent-yellow);
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 15px 35px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(246, 184, 70, 0.4);
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-orange);
+    color: var(--text-white);
+    transform: translateY(-3px);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -150px;
+    width: 100%;
+}
+
+/* Hero Main Image styling */
+.hero-main-img {
+    width: 100%;
+    max-width: 800px; /* Increased size significantly for PC */
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));
+    animation: floating 6s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+/* --- Torn Edge CSS Trick --- */
+.torn-edge {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    /* Height of the jagged edge */
+    /* Using an SVG polygon for a rough, jagged torn paper effect */
+    background: url('images/hero.png');
+    background-size: 50px 100%;
+    /* Repeats horizontally */
+    z-index: 5;
+}
+
+
+/* ================= PART 2: PRODUCTS SECTION ================= */
+.products-section {
+    padding: 100px 20px 80px 20px;
+    text-align: center;
+}
+
+/* --- Header --- */
+.section-subtitle {
+    color: var(--accent-orange);
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.section-desc {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* --- Grid & Cards --- */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.product-card {
+    background-color: var(--text-white);
+    border-radius: 20px;
+    padding: 25px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+    text-align: left;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Badges */
+.card-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-weight: 700;
+    font-size: 0.85rem;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-badge.yellow {
+    background-color: var(--accent-yellow);
+}
+
+.card-badge.orange {
+    background-color: var(--accent-orange);
+}
+
+.card-badge.red {
+    background-color: var(--bg-red-light);
+}
+
+/* Card Image Placeholder */
+.placeholder-card-img {
+    height: 220px;
+    background-color: #f5f5f5;
+    border: 2px dashed #ddd;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    text-align: center;
+    padding: 10px;
+}
+
+.placeholder-card-img p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.placeholder-card-img small {
+    font-size: 0.8rem;
+}
+
+/* Card Typography */
+.card-content h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.card-meta {
+    color: var(--accent-orange);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.card-desc {
+    color: #777;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+/* Card Footer */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.btn-card {
+    background-color: var(--accent-orange);
+    color: var(--text-white);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-card:hover {
+    background-color: var(--bg-red-light);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .hero-text {
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+    }
+
+    .hero-image {
+        margin-bottom: -50px;
+        justify-content: center;
+    }
+
+    .hero-main-img {
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .nav-links,
+    .btn-nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .hero-main-img {
+        max-width: 100%; /* Let it be large on mobile */
+        width: 100%;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+}
