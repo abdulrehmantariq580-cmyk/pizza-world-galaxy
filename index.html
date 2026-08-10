@@ -581,7 +581,7 @@
         setInterval(nextSlide, 3500);
 
     </script>
-   <!-- ==========================================
+  <!-- ==========================================
      PART 2: 3D SWIPE SLIDER & BOXLESS MENU
      ========================================== -->
 <style>
@@ -921,28 +921,28 @@
         <div class="brush-glow"></div>
         
         <!-- Dish 1 -->
-        <div class="carousel-item prev" onclick="handleUserInteraction(); setSlide(0);">
+        <div class="carousel-item prev" onclick="handleUserClick(0)">
             <img src="media/popular 1.webp" alt="Galaxy Burger">
             <h4>Galaxy Burger</h4>
             <span class="price">Rs. 1,299</span>
         </div>
         
         <!-- Dish 2 -->
-        <div class="carousel-item active" onclick="handleUserInteraction(); setSlide(1);">
+        <div class="carousel-item active" onclick="handleUserClick(1)">
             <img src="media/popular 2.webp" alt="Meteor Pizza">
             <h4>Meteor Pizza</h4>
             <span class="price">Rs. 1,550</span>
         </div>
         
         <!-- Dish 3 -->
-        <div class="carousel-item next" onclick="handleUserInteraction(); setSlide(2);">
+        <div class="carousel-item next" onclick="handleUserClick(2)">
             <img src="media/popular 3.webp" alt="Star Combo">
             <h4>Star Combo</h4>
             <span class="price">Rs. 1,800</span>
         </div>
         
         <!-- Dish 4 -->
-        <div class="carousel-item hidden" onclick="handleUserInteraction(); setSlide(3);">
+        <div class="carousel-item hidden" onclick="handleUserClick(3)">
             <img src="media/popular 4.webp" alt="Asteroid Fries">
             <h4>Asteroid Fries</h4>
             <span class="price">Rs. 599</span>
@@ -950,8 +950,8 @@
     </div>
 
     <div class="slider-controls">
-        <button class="control-btn" onclick="handleUserInteraction(); moveSlide(-1);"><i class="fas fa-chevron-left"></i></button>
-        <button class="control-btn" onclick="handleUserInteraction(); moveSlide(1);"><i class="fas fa-chevron-right"></i></button>
+        <button class="control-btn" onclick="handleUserClick('prev')"><i class="fas fa-chevron-left"></i></button>
+        <button class="control-btn" onclick="handleUserClick('next')"><i class="fas fa-chevron-right"></i></button>
     </div>
 </section>
 
@@ -1016,12 +1016,11 @@
     </div>
 </section>
 
-<!-- JavaScript for 3D Swipe Slider with Smart Autoplay -->
+<!-- JavaScript for 3D Swipe Slider with Non-Stop Continuous Autoplay -->
 <script>
     const items = document.querySelectorAll('.carousel-item');
     let currentIndex = 1;
     let autoplayInterval = null;
-    let isUserInteracted = false;
 
     function updateCarousel() {
         items.forEach((item, index) => {
@@ -1049,23 +1048,29 @@
         updateCarousel();
     }
 
-    function handleUserInteraction() {
-        if (!isUserInteracted) {
-            isUserInteracted = true;
-            clearInterval(autoplayInterval);
-        }
-    }
-
-    function startAutoplay() {
+    // Non-stop smooth rotation even if user clicks or swipes
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
         autoplayInterval = setInterval(() => {
-            if (!isUserInteracted) {
-                moveSlide(1);
-            }
-        }, 3500);
+            moveSlide(1);
+        }, 3500); // Har 3.5 seconds baad automatically next slide hoga
     }
 
-    startAutoplay();
+    function handleUserClick(action) {
+        if (action === 'next') {
+            moveSlide(1);
+        } else if (action === 'prev') {
+            moveSlide(-1);
+        } else {
+            setSlide(action);
+        }
+        resetAutoplay(); // Timer reset ho jayega taake user ke click ke baad bhi smooth chalta rahe
+    }
 
+    // Initialize Non-Stop Autoplay on page load
+    resetAutoplay();
+
+    // Mobile Swipe Logic (Touch Events)
     let touchstartX = 0;
     let touchendX = 0;
     const swipeArea = document.getElementById('swipeArea');
@@ -1081,12 +1086,14 @@
 
     function handleSwipe() {
         if (touchendX < touchstartX - 40) {
-            handleUserInteraction();
+            // Swiped Left
             moveSlide(1);
+            resetAutoplay();
         }
         if (touchendX > touchstartX + 40) {
-            handleUserInteraction();
+            // Swiped Right
             moveSlide(-1);
+            resetAutoplay();
         }
     }
 </script>
